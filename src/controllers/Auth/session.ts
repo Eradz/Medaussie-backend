@@ -2,7 +2,6 @@ import {Response, Request} from "express"
 import { AppResponse } from "../../common/utils"
 import AsyncHandler from "express-async-handler"
 import { User } from "../../models/userModel"
-import { userType } from "../../common/types"
 import  Jwt  from "jsonwebtoken"
 
 
@@ -12,7 +11,7 @@ export const sessionController = AsyncHandler(async (req: Request, res: Response
         AppResponse.error(res, "Access token is required")
     }
         const userId = await Jwt.decode(access_token)
-     if(!userId) {   
+    if(!userId) {   
         AppResponse.error(res, "Invalid access token")
     }
     const user = await User.findById(userId).select("firstname lastname email")
