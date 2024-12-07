@@ -12,16 +12,15 @@ export const loginController = AsyncHandler(async(req: Request, res: Response) =
       AppResponse.error(res, "Please fill all required fields")
    }
    // Perform login logic here 
-   const user = await User.findOne({email}) 
+   const user = await User.findOne({email})
    if(!user){
       AppResponse.error(res, "Invalid Email or Password")
    }
    if(user !== null && await bcrypt.compare(password, user.password)){
         const accessToken = await jwt.sign({userId: user._id, date: Date.now()}, process.env.JWT_SECRET || "", {expiresIn: "7d"})
         setCookies(res, "access_token", accessToken)
-      AppResponse.success(res, `Login successful, Welcome ${user.firstname}`, {user: user.firstname})
+      AppResponse.success(res, `Login successful, Welcome ${user.firstname}`, {user: user.role})
    }else{
-
        AppResponse.error(res, "Invalid Email or Password")
    }
 })
