@@ -1,5 +1,5 @@
 import express from "express"
-import { authRouter, uploadRouter } from "./routes"
+import { authRouter, uploadRouter, examRouter } from "./routes"
 import { errorHandler } from "./middlewares"
 import { db } from "./common/config"
 import dotenv from 'dotenv'
@@ -21,13 +21,14 @@ app.use(passport.initialize())
 passport.serializeUser(function(user, done) {done(null, user);});
 passport.deserializeUser(function(user: any, done) {done(null, user);});
 app.get("/", (req, res)=>{
-    res.status(200).json({message: "sup"})
+    res.status(200).json({message: "Medaussie"})
 })
 app.get("/login", (req, res)=>{
     res.redirect("https://medaussie.vercel.app/login")
 })
 app.use("/api/v1/users", authRouter)
 app.use("/api/v1/upload", uploadRouter)
+app.use("/api/v1/exam", examRouter)
 
 
 
