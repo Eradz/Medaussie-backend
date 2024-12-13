@@ -1,2 +1,2 @@
 export * from './userType'
-export * from './examType'
+export * from './postType'

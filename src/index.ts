@@ -1,5 +1,5 @@
 import express from "express"
-import { authRouter, uploadRouter, examRouter } from "./routes"
+import { authRouter, uploadRouter, postRouter } from "./routes"
 import { errorHandler } from "./middlewares"
 import { db } from "./common/config"
 import dotenv from 'dotenv'
@@ -28,7 +28,7 @@ app.get("/login", (req, res)=>{
 })
 app.use("/api/v1/users", authRouter)
 app.use("/api/v1/upload", uploadRouter)
-app.use("/api/v1/exam", examRouter)
+app.use("/api/v1/exam", postRouter)
 
 
 

@@ -1,7 +1,7 @@
 import {Schema, model} from "mongoose"
-import { examType } from "../common/types"
+import { postType } from "../common/types"
 
-const examSchema= new Schema<examType>({
+const postSchema= new Schema<postType>({
     title:{
         type: String,
         required: [true, "Please enter a valid Title"]
@@ -26,8 +26,13 @@ const examSchema= new Schema<examType>({
     author:{
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    type: {
+        type: String,
+        enum: ["license", "exam"],
+        default: "exam"
     }
 })
 
-export const Exam = model("Exam", examSchema)
+export const Post = model("Post", postSchema)
 

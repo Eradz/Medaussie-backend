@@ -19,4 +19,4 @@ router.delete("/:id", (req: Request, res: Response) =>{
 
 
 
-export {router as examRouter}
+export {router as postRouter}

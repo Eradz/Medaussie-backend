@@ -1,3 +1,3 @@
 export * from './Auth'
 export * from './Upload'
-export * from './Exam'
+export * from './Post'
