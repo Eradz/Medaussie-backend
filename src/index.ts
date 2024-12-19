@@ -1,7 +1,8 @@
 import express from "express"
-import { authRouter, uploadRouter, postRouter } from "./routes"
+import { authRouter, uploadRouter, postRouter, userRouter } from "./routes"
 import { errorHandler } from "./middlewares"
 import { db } from "./common/config"
+import cookieParser from "cookie-parser"
 import dotenv from 'dotenv'
 import passport from "passport"
 import Session from "express-session";
@@ -11,7 +12,8 @@ const app = express()
 const port = 5000
 db()
 app.use(express.json())
-app.use(cors())
+app.use(cookieParser())
+app.use(cors({credentials: true}))
 app.use(Session({
     secret: 'suii',
     resave: false,
@@ -26,9 +28,10 @@ app.get("/", (req, res)=>{
 app.get("/login", (req, res)=>{
     res.redirect("https://medaussie.vercel.app/login")
 })
-app.use("/api/v1/users", authRouter)
+app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/upload", uploadRouter)
-app.use("/api/v1/exam", postRouter)
+app.use("/api/v1/post", postRouter)
+app.use("/api/v1/user", userRouter)
 
 
 
