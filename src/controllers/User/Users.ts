@@ -48,5 +48,15 @@ export const updateUserController = AsyncHandler(async(req: Request, res: Respon
         return
     }
     const finalUser = await User.findByIdAndUpdate(id, updatedUserData, {new: true})
-    AppResponse.success(res, "User updated successfully", finalUser)
+    AppResponse.success(res, "User Updated successfully", finalUser)
+})
+
+export const deleteUserController = AsyncHandler(async(req: Request, res: Response) =>{
+    const {id} = req.params
+    const user = await User.findById(id)
+    if(!user){
+         return AppResponse.error(res, "User not found");
+        }
+    const finalUser = await User.findByIdAndDelete(id)
+    AppResponse.success(res, "User Deleted successfully", finalUser)
 })
