@@ -4,7 +4,7 @@ export const setCookies = (res: Response, name: string, value: string) => {
 
     res.cookie(name, value, process.env.NODE_ENV === 'development' ? 
         {
-            // domain: "localhost",
+            domain: "localhost",
             maxAge: 1000 * 60 * 60, // 1 hour
             sameSite: "lax",
             secure: false,

@@ -13,7 +13,7 @@ const port = 5000
 db()
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({credentials: true}))
+app.use(cors({credentials: true, origin: true }))
 app.use(Session({
     secret: 'suii',
     resave: false,

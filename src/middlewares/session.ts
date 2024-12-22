@@ -8,7 +8,6 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-
 export const AdminSessionMiddleWare = AsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const {access_token} = req?.cookies
     if (!access_token || access_token === undefined) {
@@ -28,7 +27,7 @@ export const AdminSessionMiddleWare = AsyncHandler(async (req: Request, res: Res
     }
     const userRole = await User.findById(userId).select("role")
 
-    userRole?.role != "admin" ? AppResponse.error(res, "Unauthorized User") : next()
+    userRole?.role != "admin" ? AppResponse.error(res, "Unauthorized User") : req.id = userId  ; next()
 })
 
 export const UserSessionMiddleWare = AsyncHandler(async (req: Request, res: Response, next: NextFunction) => {

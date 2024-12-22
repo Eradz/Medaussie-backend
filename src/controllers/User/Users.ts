@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs"
 
 
 export const getAllUsersController = AsyncHandler(async(req: Request, res: Response) =>{
-   const users = await User.find()
+   const users = await User.find().select("-googleId -password")
    if( !users || users.length < 1) {
     AppResponse.error(res, "No users found")
     return
@@ -16,7 +16,7 @@ export const getAllUsersController = AsyncHandler(async(req: Request, res: Respo
 
 export const getUserByIdController = AsyncHandler(async(req: Request, res: Response) =>{
     const {id} = req.params
-    const user = await User.findById(id)
+    const user = await User.findById(id).select("_id firstname lastname email role")
     if(!user){
         AppResponse.error(res, "User not found")
         return
