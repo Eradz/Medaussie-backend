@@ -7,7 +7,7 @@ dotenv.config()
 passport.use(new GoogleStrategy({
     clientID :     process.env.GOOGLE_CLIENT_ID ||  " " ,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || " ",
-    callbackURL: "http://localhost:5000/api/v1/users/google/callback" ,
+    callbackURL: process.env.NODE_ENV === 'development' ? "http://localhost:5000/api/v1/auth/google/callback" : "https://medaussie-backend.onrender.com/api/v1/auth/google/callback",
   },
   async function verify(accessToken: string, refreshToken: string, profile: any, done: any) {
     console.log(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET )
