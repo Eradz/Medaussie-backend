@@ -6,7 +6,7 @@ import { cloudinary } from "../../common/config"
 
 export const createPostController = AsyncHandler(async(req: Request, res:Response) => {
     const {title, excerpt, slug, body} = req.body
-    const {type, author} =req.query
+    const {type} =req.query
     if(!type){
         return AppResponse.error(res, "Please provide a post type")
     }
@@ -17,7 +17,7 @@ export const createPostController = AsyncHandler(async(req: Request, res:Respons
       return AppResponse.error(res, "Please fill All fields")
     }
         const imageUrl = await cloudinary.v2.uploader.upload(req.file.path, {folder:"Medaussie"})
-        const exam = await Post.create({ title, excerpt, slug, body, featuredImageUrl: imageUrl.secure_url, author, type })
+        const exam = await Post.create({ title, excerpt, slug, body, featuredImageUrl: imageUrl.secure_url, author: req.id, type })
         return AppResponse.success(res, "Exam Post created successfully", exam)
 
    
