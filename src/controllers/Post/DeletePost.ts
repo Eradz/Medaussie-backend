@@ -10,5 +10,5 @@ export const deletePostController = AsyncHandler(async(req: Request, res:Respons
         return AppResponse.error(res, "Please select a paricular post")
     }
         const deletedPost = await Post.findByIdAndDelete(id)
-        return AppResponse.success(res, "Exam Post updated successfully", deletedPost) 
+        return AppResponse.success(res, "Exam Post Deleted successfully", deletedPost) 
 })

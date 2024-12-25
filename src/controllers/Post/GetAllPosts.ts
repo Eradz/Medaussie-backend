@@ -10,7 +10,7 @@ export const getAllPostsController = AsyncHandler(async(req: Request, res: Respo
         AppResponse.error(res, "Please provide a type of post to be rendered")
         return
     }
-   const posts = await Post.find({type})
+   const posts = await Post.find({type}).populate("author", "firstname")
    if( !posts || posts.length < 1) {
     AppResponse.error(res, "No posts found")
     return
