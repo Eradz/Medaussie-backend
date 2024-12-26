@@ -7,6 +7,7 @@ import dotenv from 'dotenv'
 import passport from "passport"
 import Session from "express-session";
 import cors from "cors"
+import http from "http"
 dotenv.config()
 const app = express()
 const port = 5000
@@ -33,12 +34,13 @@ app.use("/api/v1/upload", uploadRouter)
 app.use("/api/v1/post", postRouter)
 app.use("/api/v1/user", userRouter)
 
-
-
-
+const server = http.createServer({}, app)
 
 
 app.use(errorHandler)
-app.listen(port, ()=>{
+server.listen(port, ()=>{
     console.log(`Server running on ${port}`)
 })
+// This is the important stuff
+server.keepAliveTimeout = (60 * 1000) + 1000;
+server.headersTimeout = (60 * 1000) + 2000;
