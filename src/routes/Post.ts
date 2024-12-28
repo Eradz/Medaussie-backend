@@ -7,7 +7,7 @@ import { AdminSessionMiddleWare} from "../middlewares"
 const router = express.Router()
 
 router.get("/", getAllPostsController)
-router.get("/:id", getSinglePostController)
+router.get("/:slug", getSinglePostController)
 router.post("/", [AdminSessionMiddleWare, upload.single('file')] , createPostController)
 router.post("/:id", [AdminSessionMiddleWare, upload.single('file')], updatePostController)
 router.delete("/:id", AdminSessionMiddleWare, deletePostController)

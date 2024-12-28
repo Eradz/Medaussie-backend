@@ -11,7 +11,7 @@ dotenv.config()
 export const AdminSessionMiddleWare = AsyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const {access_token} = req?.cookies
     if (!access_token || access_token === undefined) {
-        AppResponse.error(res, "Access token is required")
+        AppResponse.error(res, "Access token is required, Please login again.")
     }
     interface JwtPayload {
         userId: string;
@@ -23,7 +23,7 @@ export const AdminSessionMiddleWare = AsyncHandler(async (req: Request, res: Res
         const userId = decoded.userId
         
     if(!userId) {   
-        AppResponse.error(res, "Invalid access token")
+        AppResponse.error(res, "Invalid access token, Please login again.")
     }
     const userRole = await User.findById(userId).select("role")
 
@@ -34,7 +34,7 @@ export const UserSessionMiddleWare = AsyncHandler(async (req: Request, res: Resp
     const {access_token} = req?.cookies
     const {id} = req.params
     if (!access_token || access_token === undefined) {
-        AppResponse.error(res, "Access token is required")
+        AppResponse.error(res, "Access token is required, Please login again.")
     }
     if ( id && mongoose.Types.ObjectId.isValid(id) === false) {
         return AppResponse.error(res, "Invalid ID");
@@ -49,7 +49,7 @@ export const UserSessionMiddleWare = AsyncHandler(async (req: Request, res: Resp
         const userId = decoded.userId
         
     if(!userId) {   
-        AppResponse.error(res, "Invalid access token")
+        AppResponse.error(res, "Invalid access token, Please login again.")
     }
     const user = await User.findById(userId).select("role _id")
 
