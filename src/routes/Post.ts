@@ -9,7 +9,7 @@ const router = express.Router()
 router.get("/", getAllPostsController)
 router.get("/:slug", getSinglePostController)
 router.post("/", [AdminSessionMiddleWare, upload.single('file')] , createPostController)
-router.post("/:id", [AdminSessionMiddleWare, upload.single('file')], updatePostController)
+router.post("/:slug", [AdminSessionMiddleWare, upload.single('file')], updatePostController)
 router.delete("/:id", AdminSessionMiddleWare, deletePostController)
 
 export {router as postRouter}
