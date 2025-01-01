@@ -14,7 +14,7 @@ const port = 5000
 db()
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({credentials: true, origin: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://medaussie.vercel.app" }))
+app.use(cors({credentials: true, origin: ["http://localhost:3000", `${process.env.FRONTEND_URL}`] }))
 app.use(Session({
     secret: 'suii',
     resave: false,
@@ -27,8 +27,12 @@ app.get("/", (req, res)=>{
     res.status(200).json({message: "Medaussie"})
 })
 app.get("/login", (req, res)=>{
-    res.redirect("https://medaussie.vercel.app/login")
+    res.redirect(`${process.env.FRONTEND_URL}/login`)
 })
+app.get('/logout', (req, res) => {
+    res.cookie('access_token', '', { maxAge: 0 });
+    res.redirect("/login")
+  });
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/upload", uploadRouter)
 app.use("/api/v1/post", postRouter)
@@ -41,6 +45,5 @@ app.use(errorHandler)
 server.listen(port, ()=>{
     console.log(`Server running on ${port}`)
 })
-// This is the important stuff
 server.keepAliveTimeout = (60 * 1000) + 1000;
 server.headersTimeout = (60 * 1000) + 2000;
