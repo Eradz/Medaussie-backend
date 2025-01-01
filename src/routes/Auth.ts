@@ -1,6 +1,8 @@
 import express from "express"
 import { signupController, loginController, sessionController } from "../controllers/Auth"
 import passport from "passport"
+import dotenv from "dotenv"
+dotenv.config()
 
 const router = express.Router()
 
@@ -12,7 +14,7 @@ router.get('/google/callback',
     passport.authenticate('google', {
         failureRedirect: '/login'
       }), async(req,res)=>{    
-        res.redirect(process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : "https://medaussie.vercel.app" )
+        res.redirect(process.env.NODE_ENV === 'development' ? 'http://localhost:3000/' : `${process.env.FRONTEND_URL}` )
       })
 
 
