@@ -54,7 +54,12 @@ export const UserSessionMiddleWare = AsyncHandler(async (req: Request, res: Resp
     const user = await User.findById(userId).select("role _id")
 
     if(!user ) {return AppResponse.error(res, "Unauthorized User")}
-    if(user.role === "admin" || userId === id){
+    if( userId === id){
+        next()
+        return
+    }
+    if(user.role === "admin" ){
+        req.id = user.id
         next()
         return
     }

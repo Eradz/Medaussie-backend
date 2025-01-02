@@ -39,11 +39,12 @@ export const updateUserController = AsyncHandler(async(req: Request, res: Respon
         updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10)
     }
     const user = await User.findById(id)
+    const admin = await User.findById(req.id)
     if(!user) {
         AppResponse.error(res, "User not found")
         return
     }
-    if (Object.keys(updatedUserData).includes("role") && user.id != "admin"){
+    if (Object.keys(updatedUserData).includes("role") && !admin){
         AppResponse.error(res, "Only Admins can update role")
         return
     }
