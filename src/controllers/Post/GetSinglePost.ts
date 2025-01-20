@@ -10,10 +10,10 @@ export const getSinglePostController = AsyncHandler(async(req: Request, res: Res
         AppResponse.error(res, "Please provide a type of post to be rendered")
         return
     }
-    const user = await Post.findOne({slug, type}).select("-_v")
-    if(!user){
+    const post = await Post.findOne({slug, type}).select("-_v")
+    if(!post){
         AppResponse.error(res, "Post not found")
         return
     }
-    AppResponse.success(res, "Post found", user)
+    AppResponse.success(res, "Post found", post)
 })
