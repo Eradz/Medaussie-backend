@@ -1,5 +1,4 @@
-import express, {Request, Response} from "express"
-import { AppResponse } from "../common/utils"
+import express from "express"
 import { createPostController, getAllPostsController, updatePostController, deletePostController, getSinglePostController } from "../controllers/Post"
 import { upload } from "../common/config"
 import { AdminSessionMiddleWare} from "../middlewares"

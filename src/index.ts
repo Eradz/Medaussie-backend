@@ -1,5 +1,5 @@
 import express from "express"
-import { authRouter, uploadRouter, postRouter, userRouter } from "./routes"
+import { authRouter, uploadRouter, postRouter, userRouter, messageRouter  } from "./routes"
 import { errorHandler } from "./middlewares"
 import { db } from "./common/config"
 import cookieParser from "cookie-parser"
@@ -37,6 +37,7 @@ app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/upload", uploadRouter)
 app.use("/api/v1/post", postRouter)
 app.use("/api/v1/user", userRouter)
+app.use("/api/v1/message", messageRouter)
 
 const server = http.createServer({}, app)
 
