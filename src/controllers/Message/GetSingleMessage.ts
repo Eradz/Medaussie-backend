@@ -11,11 +11,16 @@ export const GetSingleMessagesController = AsyncHandler(async(req: Request, res:
         AppResponse.error(res, "Please specifiy a valid message type")
         return
     }
-    const message = await Message.findOne({type: "question", _id: id}).select("-type").populate({path:"comments"}).populate("authorId").select('-type')
+    const message = await Message.findOne({type: "question", _id: id})
+    .populate({path:"comments", select:"-type -comments", 
+        populate: {
+        path: 'authorId',
+        model: "User",
+        select: "firstname _id"
+      }})
+      .populate({path: "authorId", model: "User", select: "firstname _id"}).select("-type")
     if(!message || message === null){
         AppResponse.error(res, "No message found")
     }
-   await message?.populate(["comments", "authorId"])
-   console.log(message?.populated("authorId"))
    AppResponse.success(res, "Questions Found", message)
 })

@@ -10,10 +10,10 @@ const messageSchema= new Schema<messageType>({
     details:{
         type: String
     },
-    comments:{
-        type: [Schema.Types.ObjectId],
+    comments:[{
+        type: Schema.Types.ObjectId,
         ref: "Message",
-    },
+    }],
     authorId:{
         type: Schema.Types.ObjectId,
         ref: "User"
